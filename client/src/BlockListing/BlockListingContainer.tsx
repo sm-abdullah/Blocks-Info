@@ -23,7 +23,7 @@ const BlockListingContainer = () => {
         setdialogBox(true);
     }
     useEffect(() => {
-        axios.get("/api/blocksInfo").then(resp => {
+        axios.get("/api/blocks/info").then(resp => {
             setblockListing(resp.data);
         })
     }, []);
