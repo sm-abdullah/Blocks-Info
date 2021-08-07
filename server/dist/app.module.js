@@ -11,13 +11,14 @@ const common_1 = require("@nestjs/common");
 const app_controller_1 = require("./controllers/app.controller");
 const blcoksinfos_repo_1 = require("./repository/blcoksinfos.repo");
 const app_service_1 = require("./services/app.service");
+const cahche_1 = require("./services/cahche");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [],
         controllers: [app_controller_1.AppController],
-        providers: [blcoksinfos_repo_1.BlockInfoRepo, app_service_1.AppService],
+        providers: [blcoksinfos_repo_1.BlockInfoRepo, cahche_1.CacheService, app_service_1.AppService],
     })
 ], AppModule);
 exports.AppModule = AppModule;

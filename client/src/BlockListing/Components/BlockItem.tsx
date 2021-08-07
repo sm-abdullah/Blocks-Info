@@ -1,8 +1,8 @@
 import "./BlockItem.scss"
 export interface BlockItemProps {
   hash: string;
-  height: string;
-  time: string;
+  height: number;
+  time: number;
   onClick: (hash:string) => void;
 }
 
@@ -10,8 +10,8 @@ const BlockItem = (props: BlockItemProps) => {
   return (
     <tr className="block-item" onClick={() => props.onClick(props.hash)}>
       <td className="cell-hash">{props.hash}</td>
-      <td className="cell-time">{props.height}</td>
-      <td className="cell-height">{props.time}</td>
+      <td className="cell-time">{props.time}</td>
+      <td className="cell-height">{props.height}</td>
     </tr>
   );
 }
