@@ -3,12 +3,12 @@ export interface BlockItemProps {
   hash: string;
   height: string;
   time: string;
-  onClick: () => void;
+  onClick: (hash:string) => void;
 }
 
 const BlockItem = (props: BlockItemProps) => {
   return (
-    <tr className="block-item" onClick={() => props.onClick()}>
+    <tr className="block-item" onClick={() => props.onClick(props.hash)}>
       <td className="cell-hash">{props.hash}</td>
       <td className="cell-time">{props.height}</td>
       <td className="cell-height">{props.time}</td>

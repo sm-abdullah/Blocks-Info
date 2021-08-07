@@ -10,4 +10,8 @@ export class AppService {
   async getBlockInfo(): Promise<any> {
      return this.blockInfoRepo.getBlockInfo();
   }
+
+  async getBlockRowInfo(hash:string): Promise<any> {
+    return this.blockInfoRepo.getBlockRowInfo(hash);
+ }
 }

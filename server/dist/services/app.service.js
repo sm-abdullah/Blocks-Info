@@ -19,6 +19,9 @@ let AppService = class AppService {
     async getBlockInfo() {
         return this.blockInfoRepo.getBlockInfo();
     }
+    async getBlockRowInfo(hash) {
+        return this.blockInfoRepo.getBlockRowInfo(hash);
+    }
 };
 AppService = __decorate([
     common_1.Injectable(),

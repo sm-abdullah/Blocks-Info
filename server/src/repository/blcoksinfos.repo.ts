@@ -7,4 +7,7 @@ export class BlockInfoRepo {
     async getBlockInfo () : Promise<any> {
         return axios.get("http://blockchain.info/blocks/1573858800000?format=json").then(item => item.data)
     };
+    async getBlockRowInfo (hash:string) : Promise<any> {
+        return axios.get("https://blockchain.info/rawblock/"+hash).then(item => item.data)
+    };
 }

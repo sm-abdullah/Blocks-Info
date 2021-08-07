@@ -4,6 +4,8 @@ import { isEmptyBindingElement } from "typescript";
 import "./BlockListing.scss"
 import { BlockItem, BlockHeader } from "./Components/BlockItem";
 import DialogBox from "../DialogBox";
+import { BlockDetail } from "./Components/BlockDetail";
+import { Dialog } from "@material-ui/core";
 
 export interface BlockListingProps {
 
@@ -16,10 +18,12 @@ const cd: any[] = [{ "hash": "0000000000000000000efcea1cc1a169955e9cf6f039ddeabf
 const BlockListingContainer = () => {
     const [blockListing, setblockListing] = useState(cd);
     const [dialogBox, setdialogBox] = useState(true);
+    const [activeBlock, setactiveBlock] = useState("");
     const onDialogBoxClose = () => {
         setdialogBox(false);
     }
-    const showDialogBox = () => {
+    const blockItemOnClick = (hash: string) => {
+        setactiveBlock(hash);
         setdialogBox(true);
     }
     useEffect(() => {
@@ -30,7 +34,7 @@ const BlockListingContainer = () => {
 
     const renderListing = () => {
         return blockListing.map((item, key) => {
-            return <BlockItem key={key} height={item.height} time={item.time} hash={item.hash} onClick={showDialogBox} />
+            return <BlockItem key={key} height={item.height} time={item.time} hash={item.hash} onClick={blockItemOnClick} />
         }
         )
     }
@@ -44,10 +48,14 @@ const BlockListingContainer = () => {
                     </tbody>
                 </table>
             </div>
-            <div className="card">
-                adsfasd
+            <div >
+                {dialogBox &&
+                    <DialogBox onClose={onDialogBoxClose}>
+                        <BlockDetail hash={activeBlock} />
+                    </DialogBox>
+
+                }
             </div>
-           { dialogBox && <DialogBox onClose={onDialogBoxClose}/>}
         </div>
     );
 }
