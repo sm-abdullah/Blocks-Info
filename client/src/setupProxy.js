@@ -2,9 +2,9 @@ const { createProxyMiddleware } = require('http-proxy-middleware');
 
 module.exports = function(app) {
   app.use(
-    '/api',
+    '/assspi',
     createProxyMiddleware({
-      target: 'http://localhost:3001',
+      target: 'http://blocksinfo-server:3001',
       changeOrigin: true,
       logLevel: 'debug',
     })

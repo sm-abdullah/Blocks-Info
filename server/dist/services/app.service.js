@@ -11,7 +11,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
-const blocksInfo_repo_1 = require("../repository/blocksInfo.repo");
+const blcoksinfos_repo_1 = require("../repository/blcoksinfos.repo");
 let AppService = class AppService {
     constructor(blockInfoRepo) {
         this.blockInfoRepo = blockInfoRepo;
@@ -22,7 +22,7 @@ let AppService = class AppService {
 };
 AppService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [blocksInfo_repo_1.BlockInfoRepo])
+    __metadata("design:paramtypes", [blcoksinfos_repo_1.BlockInfoRepo])
 ], AppService);
 exports.AppService = AppService;
 //# sourceMappingURL=app.service.js.map

@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  api:
+    build:  server
+    hostname: blocksinfo-server
+    ports:
+      - "3001:3001"
+    networks: 
+      - blocksinfo
+  client:
+    build: client
+
+    depends_on:
+      - api
+    ports:
+      - "3000:3000"
+    networks: 
+      - blocksinfo
+
+
+networks:
+    blocksinfo:

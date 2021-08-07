@@ -23,14 +23,14 @@ const BlockListingContainer = () => {
         setdialogBox(true);
     }
     useEffect(() => {
-        axios.get("/api/blocks/info").then(resp => {
+        axios.get("http://localhost:3001/api/blocks/info").then(resp => {
             setblockListing(resp.data);
         })
     }, []);
 
     const renderListing = () => {
-        return blockListing.map(item => {
-            return <BlockItem height={item.height} time={item.time} hash={item.hash} onClick={showDialogBox} />
+        return blockListing.map((item, key) => {
+            return <BlockItem key={key} height={item.height} time={item.time} hash={item.hash} onClick={showDialogBox} />
         }
         )
     }

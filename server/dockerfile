@@ -1,0 +1,21 @@
+FROM node
+ 
+WORKDIR /usr/src/app
+ 
+COPY package*.json ./
+ 
+COPY ./src ./src
+RUN echo $(ls -1 ./repository)
+ 
+
+
+COPY ./tsconfig.json ./
+COPY ./yarn.lock ./
+COPY ./nest-cli.json ./
+COPY ./tsconfig.build.json ./
+RUN yarn install
+RUN yarn build
+
+EXPOSE 3001
+ 
+CMD [ "yarn", "start:prod" ]

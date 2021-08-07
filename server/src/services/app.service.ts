@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { BlockInfoRepo } from 'src/repository/blocksInfo.repo';
+import { BlockInfoRepo } from 'src/repository/blcoksinfos.repo';
+
 
 @Injectable()
 export class AppService {
