@@ -4,21 +4,20 @@ import "./DialogBox.scss"
 interface DialogBoxProps {
     onClose: () => void;
     children: any;
+    title: string;
 }
-
-
-const DialogBox = ({ children, onClose } : DialogBoxProps) => {
+const DialogBox = ({ children, onClose,title } : DialogBoxProps) => {
 
     return (
         <div id="centerpoint">
         <div id="dialog">
             <div className="modal-box">
                 <div className="header">
-                    <div className="title-box">text</div>
+                    <div className="title-box">{title}</div>
                     <div className="close-box noselect" onClick={() => onClose()}>x</div>
                 </div>
 
-                <div className="content">sdfsdfsdf
+                <div className="content">
                 {children}
                 </div>
             </div>

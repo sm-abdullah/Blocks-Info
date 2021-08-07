@@ -12,20 +12,28 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppService = void 0;
 const common_1 = require("@nestjs/common");
 const blcoksinfos_repo_1 = require("../repository/blcoksinfos.repo");
+const cahche_1 = require("./cahche");
 let AppService = class AppService {
-    constructor(blockInfoRepo) {
+    constructor(blockInfoRepo, cacheService) {
         this.blockInfoRepo = blockInfoRepo;
+        this.cacheService = cacheService;
     }
     async getBlockInfo() {
-        return this.blockInfoRepo.getBlockInfo();
+        return this.blockInfoRepo.getBlockInfo().then(date => date.slice(0, 50));
     }
     async getBlockRowInfo(hash) {
-        return this.blockInfoRepo.getBlockRowInfo(hash);
+        let resp = this.cacheService.get(hash);
+        if (resp === undefined) {
+            resp = await this.blockInfoRepo.getBlockRowInfo(hash);
+            this.cacheService.set(hash, resp);
+        }
+        return resp;
     }
 };
 AppService = __decorate([
     common_1.Injectable(),
-    __metadata("design:paramtypes", [blcoksinfos_repo_1.BlockInfoRepo])
+    __metadata("design:paramtypes", [blcoksinfos_repo_1.BlockInfoRepo,
+        cahche_1.CacheService])
 ], AppService);
 exports.AppService = AppService;
 //# sourceMappingURL=app.service.js.map

@@ -22,18 +22,3 @@
      }
 }
 
-.base-class {
-   color:red;
-   height: 20px;
-   width: 20px; 
-}
-
-.a {
-    @extend .base-class;
-    background: black;
-}
-.b {
-    @extend .base-class;
-    background: yellow;
-}
-

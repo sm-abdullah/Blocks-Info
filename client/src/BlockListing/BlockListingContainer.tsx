@@ -6,6 +6,7 @@ import { BlockItem, BlockHeader } from "./Components/BlockItem";
 import DialogBox from "../DialogBox";
 import { BlockDetail } from "./Components/BlockDetail";
 import { Dialog } from "@material-ui/core";
+import { ListLoading } from "./Components/ListLoading";
 
 export interface BlockListingProps {
 
@@ -17,8 +18,9 @@ const cd: any[] = [{ "hash": "0000000000000000000efcea1cc1a169955e9cf6f039ddeabf
 { "hash": "000000000000000000072200d4179a900d6b4ab78cd0add270a727afbf3a17f7", "height": 603962, "time": 1573856123, "block_index": 603962 }];
 const BlockListingContainer = () => {
     const [blockListing, setblockListing] = useState(cd);
-    const [dialogBox, setdialogBox] = useState(true);
+    const [dialogBox, setdialogBox] = useState(false);
     const [activeBlock, setactiveBlock] = useState("");
+    const  [isLoading, setisLoading] = useState(true);
     const onDialogBoxClose = () => {
         setdialogBox(false);
     }
@@ -29,6 +31,7 @@ const BlockListingContainer = () => {
     useEffect(() => {
         axios.get("http://localhost:3001/api/blocks/info").then(resp => {
             setblockListing(resp.data);
+            setisLoading(false);
         })
     }, []);
 
@@ -40,17 +43,20 @@ const BlockListingContainer = () => {
     }
     return (
         <div>
-            <div className="block-listing card">
-                <table>
-                    <BlockHeader />
-                    <tbody>
-                        {renderListing()}
-                    </tbody>
-                </table>
-            </div>
+            {isLoading && <ListLoading />}
+            {!isLoading &&
+                <div className="block-listing card">
+                    <table>
+                        <BlockHeader />
+                        <tbody>
+                            {renderListing()}
+                        </tbody>
+                    </table>
+                </div>}
+           
             <div >
                 {dialogBox &&
-                    <DialogBox onClose={onDialogBoxClose}>
+                    <DialogBox onClose={onDialogBoxClose} title="Block Detail Info.">
                         <BlockDetail hash={activeBlock} />
                     </DialogBox>
 
