@@ -19,25 +19,40 @@ let AppController = class AppController {
     constructor(appService) {
         this.appService = appService;
     }
-    async getBlcoksInfo(request) {
-        if (request.query.hash) {
-            return this.appService.getBlockRowInfo(request.query.hash.toString());
-        }
-        else {
-            return this.appService.getBlockInfo();
-        }
+    async getBlcoksInfo() {
+        return this.appService.getBlockInfo().then(resp => {
+            return {
+                isSuccess: true,
+                data: resp,
+            };
+        });
+    }
+    ;
+    async getRowBlock(hash) {
+        return this.appService.getBlockRowInfo(hash.toString()).then(resp => {
+            return {
+                data: resp,
+                isSuccess: true,
+            };
+        });
     }
     ;
 };
 __decorate([
-    common_1.Get("info"),
-    __param(0, common_1.Req()),
+    common_1.Get("blocks"),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object]),
+    __metadata("design:paramtypes", []),
     __metadata("design:returntype", Promise)
 ], AppController.prototype, "getBlcoksInfo", null);
+__decorate([
+    common_1.Get("blocks/:hash"),
+    __param(0, common_1.Param('hash')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String]),
+    __metadata("design:returntype", Promise)
+], AppController.prototype, "getRowBlock", null);
 AppController = __decorate([
-    common_1.Controller("api/blocks"),
+    common_1.Controller("api"),
     __metadata("design:paramtypes", [app_service_1.AppService])
 ], AppController);
 exports.AppController = AppController;

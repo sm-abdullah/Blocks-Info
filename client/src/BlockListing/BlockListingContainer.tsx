@@ -7,14 +7,14 @@ import DialogBox from "../DialogBox";
 import { BlockDetail } from "./Components/BlockDetail";
 import { Dialog } from "@material-ui/core";
 import { ListLoading } from "./Components/ListLoading";
-import { BlockInfoResp } from "../model/blockInfoResp";
+import { BlockInfoDetail, BlockInfoResp } from "../model/blockInfoResp";
 
 export interface BlockListingProps {
 
 }
 
 const BlockListingContainer = () => {
-    const [blockListing, setblockListing] = useState([] as BlockInfoResp[]);
+    const [blockListing, setblockListing] = useState([] as BlockInfoDetail[]);
     const [dialogBox, setdialogBox] = useState(false);
     const [activeBlock, setactiveBlock] = useState("");
     const  [isLoading, setisLoading] = useState(true);
@@ -26,8 +26,8 @@ const BlockListingContainer = () => {
         setdialogBox(true);
     }
     useEffect(() => {
-        axios.get("http://localhost:3001/api/blocks/info").then(resp => {
-            setblockListing(resp.data);
+        axios.get<BlockInfoResp>("http://localhost:3001/api/blocks").then(resp => {
+            setblockListing(resp.data.data);
             setisLoading(false);
         })
     }, []);

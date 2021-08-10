@@ -1,19 +1,30 @@
-import { Controller, Get, Req } from '@nestjs/common';
+import { Controller, Get, HttpStatus, Param, Req, Res } from '@nestjs/common';
 import { AppService } from '../services/app.service';
-import { Request} from 'express'
+import { Request, Response } from 'express'
+import { BlockInfoResp, RowBlockResp } from './model/RowBlockResp';
 
-@Controller("api/blocks")
+@Controller("api")
 export class AppController {
-  constructor(private readonly appService: AppService) {}
+  constructor(private readonly appService: AppService) { }
 
-  @Get("info")
-  async getBlcoksInfo(@Req() request: Request): Promise<any> {
-    if (request.query.hash) {
-      return this.appService.getBlockRowInfo(request.query.hash.toString());
-    }
-    else {
-      return this.appService.getBlockInfo();
-    }
-
+  @Get("blocks")
+  async getBlcoksInfo(): Promise<BlockInfoResp> {
+    return this.appService.getBlockInfo().then(resp => {
+      return {
+        isSuccess: true,
+        data : resp,
+      }
+    })
   };
+
+  @Get("blocks/:hash")
+  async getRowBlock(@Param('hash') hash: string): Promise<RowBlockResp> {
+    return this.appService.getBlockRowInfo(hash.toString()).then(resp => {
+      return {
+        data: resp,
+        isSuccess: true,
+      } as RowBlockResp;
+    });
+  };
+
 }

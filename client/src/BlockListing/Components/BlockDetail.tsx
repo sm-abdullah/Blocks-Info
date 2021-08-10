@@ -1,22 +1,27 @@
 import axios from 'axios';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
+import { RowBlockDetail, RowBlockResp } from '../../model/blockInfoResp';
 import "./BlockDetail.scss"
 export interface BlockDetailProps {
     hash?: string;
 }
-export interface BlockDeailInfoResp {
-    prev_block: string;
-    block_index: number;
-    size: number;
-}
+
 const BlockDetail = (props: BlockDetailProps) => {
-    const [blockInfo, setblockInfo] = useState({} as BlockDeailInfoResp);
+    const rowBlockDetail: RowBlockDetail = {
+        hash: "",
+        time: "",
+        previousBlock: "",
+        height: 0,
+        size: 0,
+        index: 0,
+    }
+    const [blockInfo, setblockInfo] = useState(rowBlockDetail);
     const [isLoading, setisLoading] = useState(true);
     useEffect(() => {
         setisLoading(true);
-        axios.get("http://localhost:3001/api/blocks/info?hash=" + props.hash).then(resp => {
-            setblockInfo(resp.data);
+        axios.get<RowBlockResp>("http://localhost:3001/api/blocks/" + props.hash).then(resp => {
+            setblockInfo(resp.data.data);
             setisLoading(false);
         })
     }, [props.hash]);
@@ -29,8 +34,8 @@ const BlockDetail = (props: BlockDetailProps) => {
             <table>
                 <tbody>
                     <tr className=" "><td className="desc">Size</td><td className={getClassName()}>{blockInfo.size}</td></tr>
-                    <tr><td className="desc">Block Index</td><td className={getClassName()}>{blockInfo.block_index}</td></tr>
-                    <tr className=" "><td className="desc">Previous Hash</td><td className={getClassName()}>{blockInfo.prev_block}</td></tr>
+                    <tr><td className="desc">Block Index</td><td className={getClassName()}>{blockInfo.index}</td></tr>
+                    <tr className=" "><td className="desc">Previous Hash</td><td className={getClassName()}>{blockInfo.previousBlock}</td></tr>
                 </tbody>
             </table>
         </div>

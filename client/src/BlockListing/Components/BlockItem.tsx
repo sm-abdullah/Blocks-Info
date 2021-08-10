@@ -2,7 +2,7 @@ import "./BlockItem.scss"
 export interface BlockItemProps {
   hash: string;
   height: number;
-  time: number;
+  time: string;
   onClick: (hash:string) => void;
 }
 

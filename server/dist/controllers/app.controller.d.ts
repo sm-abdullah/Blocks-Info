@@ -1,7 +1,8 @@
 import { AppService } from '../services/app.service';
-import { Request } from 'express';
+import { BlockInfoResp, RowBlockResp } from './model/RowBlockResp';
 export declare class AppController {
     private readonly appService;
     constructor(appService: AppService);
-    getBlcoksInfo(request: Request): Promise<any>;
+    getBlcoksInfo(): Promise<BlockInfoResp>;
+    getRowBlock(hash: string): Promise<RowBlockResp>;
 }
