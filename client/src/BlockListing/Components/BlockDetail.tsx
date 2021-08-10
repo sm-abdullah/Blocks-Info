@@ -25,16 +25,16 @@ const BlockDetail = (props: BlockDetailProps) => {
             setisLoading(false);
         })
     }, [props.hash]);
-    const getClassName = () : string => {
-       return isLoading ? "value linear-background" : "value";
+    const getClassName = (): string => {
+        return isLoading ? "value linear-background" : "value";
     }
     return (
-      
+
         <div className="block-detail">
             <table>
                 <tbody>
-                    <tr className=" "><td className="desc">Size</td><td className={getClassName()}>{blockInfo.size}</td></tr>
-                    <tr><td className="desc">Block Index</td><td className={getClassName()}>{blockInfo.index}</td></tr>
+                    <tr className=" "><td className="desc">Size</td><td className={getClassName()}>{blockInfo.size === 0 ? "" : blockInfo.size}</td></tr>
+                    <tr><td className="desc">Block Index</td><td className={getClassName()}>{blockInfo.index === 0 ? "" : blockInfo.index}</td></tr>
                     <tr className=" "><td className="desc">Previous Hash</td><td className={getClassName()}>{blockInfo.previousBlock}</td></tr>
                 </tbody>
             </table>
