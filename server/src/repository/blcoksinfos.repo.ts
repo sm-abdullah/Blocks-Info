@@ -13,10 +13,13 @@ export class BlockInfoRepo {
         return axios.get<BlockInfoResponse[]>("http://blockchain.info/blocks/1573858800000?format=json")
             .then(resp => {
                 const data = resp.data.map(item => {
+                    const date = new Date(0);
+                    date.setUTCSeconds(item.time);
+                    const time = date.toISOString();
                     const blockInfoDetail: BlockInfoDetail = {
                         hash: item.hash,
                         height: item.height,
-                        time: item.time,
+                        time: time,
                         blockIndex: item.block_index,
                     };
                     return blockInfoDetail;
@@ -28,10 +31,14 @@ export class BlockInfoRepo {
     async getBlockRowInfo (hash:string) : Promise<RowBlockDetail> {
         // Future Improvemnts : it should be pulled from configuration
         return axios.get<RowBlockResponse>("https://blockchain.info/rawblock/"+hash).then(item => {
+            const date = new Date(0);
+            
+            date.setUTCSeconds(item.data.time);
+            const time = date.toISOString();
             const resp : RowBlockDetail = {
                 hash: item.data.hash,
                 previousBlock: item.data.prev_block,
-                time: item.data.time,
+                time: time,
                 height: item.data.height,
                 size: item.data.size,
                 index: item.data.block_index,

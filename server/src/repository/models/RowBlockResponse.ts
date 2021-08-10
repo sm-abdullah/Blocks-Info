@@ -3,7 +3,7 @@ export interface RowBlockResponse {
     ver: string;
     prev_block: string;
     mrkl_root: string;
-    time: string;
+    time: number;
     bits: number;
     nonce: number;
     n_tx: number;
